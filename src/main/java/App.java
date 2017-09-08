@@ -1,9 +1,13 @@
 public class App {
 
+    public App(Client client, EventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
 
     private Client client;
 
-    private ConsoleEventLogger eventLogger;
+    private EventLogger eventLogger;
 
     public void logEvent(String msg){
         String message = msg.replaceAll(client.getId(), client.getName());
@@ -11,11 +15,11 @@ public class App {
     }
 
     public static void main(String[] args){
-        App app = new App();
 
-        app.client = new Client("1", "Sam");
-        app.eventLogger = new ConsoleEventLogger();
-        app.logEvent("hello new msg");
+
+
+
+
 
     }
 }
