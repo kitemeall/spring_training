@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="client" class="Client">
+        <constructor-arg index="0" value="ID"/>
+        <constructor-arg index="1" value="Vasya"/>
+    </bean>
+
+    <bean id="eventLogger" class="ConsoleEventLogger" />
+
+    <bean id="app" class="App" scope="singleton">
+        <constructor-arg index="0" ref="client"/>
+        <constructor-arg index="1" ref="eventLogger"/>
+    </bean>
+
+    <bean id="fileApp" class="App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheLogger"/>
+    </bean>
+
+    <bean id="event" class="Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateInstance"/>
+        </constructor-arg>
+    </bean>
+    <bean id="fileEventLogger" class="FileEventLogger" init-method="init">
+        <constructor-arg value="D:\TESTFILE.TXT "/>
+    </bean>
+
+    <bean id="cacheLogger" class="CacheFileEventLogger" init-method="init">
+        <constructor-arg value="D:\TESTFILE.TXT "/>
+        <constructor-arg value="3"/>
+    </bean>
+
+
+</beans>
